@@ -11,4 +11,10 @@
     <PackageReference Include="Twilio.AspNet.Core" Version="5.20.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\WebAPI\WebAPI.csproj" />
+    <ProjectReference Include="..\..\Domain\DomainModel\DomainModel.csproj" />
+    <ProjectReference Include="..\..\Services\DomainServices\DomainServices.csproj" />
+  </ItemGroup>
+
 </Project>
