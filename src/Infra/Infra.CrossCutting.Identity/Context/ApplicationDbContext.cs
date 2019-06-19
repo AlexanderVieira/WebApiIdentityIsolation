@@ -1,25 +1,20 @@
 ﻿using Infra.CrossCutting.Identity.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Infra.CrossCutting.Identity.Context
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDisposable
     {
-        public ApplicationDbContext()
-            :base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-                
+
         }
 
-        public static ApplicationDbContext Create()
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            return new ApplicationDbContext();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+            base.OnModelCreating(builder);
+        }            
     }
 }

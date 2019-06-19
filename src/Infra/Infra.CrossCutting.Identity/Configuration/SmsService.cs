@@ -1,29 +1,37 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Twilio;
+﻿using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 using Twilio.Clients;
+using Twilio.Http;
 
 namespace Infra.CrossCutting.Identity.Configuration
 {
-    public class SmsService : IIdentityMessageService
+    public class SmsService : ITwilioRestClient
     {
-        //public Task SendAsync(IdentityMessage message)
-        //{
-        //    // Utilizando TWILIO como SMS Provider.
-        //    // https://www.twilio.com/docs/quickstart/csharp/sms/sending-via-rest
+        private readonly ITwilioRestClient _twilioRestClient;
+        public string AccountSid => _twilioRestClient.AccountSid;
 
-        //    const string accountSid = "SEU ID";
-        //    const string authToken = "SEU TOKEN";
+        public string Region => _twilioRestClient.Region;
 
-        //    var client = new TwilioRestClient(accountSid, authToken);
+        public HttpClient HttpClient => _twilioRestClient.HttpClient;
 
-        //    client.SendMessage("Seu Telefone", message.Destination, message.Body);
-
-        //    return Task.FromResult(0);
-        //}
-        public Task SendAsync(IdentityMessage message)
+        public SmsService(IConfiguration config, System.Net.Http.HttpClient httpClient)
         {
-            throw new System.NotImplementedException();
+            httpClient.DefaultRequestHeaders.Add("X-Custom-Header", "SmsService");
+            _twilioRestClient = new TwilioRestClient(
+                config["Twilio:AccountSid"],
+                config["Twilio:AuthToken"],
+                httpClient: new SystemNetHttpClient(httpClient));
         }
+
+        public Response Request(Request request)
+        {
+            return _twilioRestClient.Request(request);
+        }
+
+        public Task<Response> RequestAsync(Request request)
+        {
+            return _twilioRestClient.RequestAsync(request);
+        }
+        
     }
 }
