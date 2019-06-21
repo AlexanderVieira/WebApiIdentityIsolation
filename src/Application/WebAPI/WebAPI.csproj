@@ -11,4 +11,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\DomainModel\DomainModel.csproj" />
+    <ProjectReference Include="..\..\Infra\Infra.CrossCutting.IoC\Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\..\Infra\Infra.Data.SqlServer\Infra.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\..\Infra\Infra.Identity.Core\Infra.Identity.Core.csproj" />
+    <ProjectReference Include="..\..\Services\DomainServices\DomainServices.csproj" />
+  </ItemGroup>
+
 </Project>

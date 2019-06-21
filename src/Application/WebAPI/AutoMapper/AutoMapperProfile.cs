@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Infra.Identity.Core.Models;
+using WebAPI.Dtos;
 
 namespace WebAPI.AutoMapper
 {
@@ -6,7 +8,7 @@ namespace WebAPI.AutoMapper
     {
         public AutoMapperProfile()
         {
-            //CreateMap<User, UserDto>();
+            CreateMap<ApplicationUser, UserDto>();
         }
         
     }
